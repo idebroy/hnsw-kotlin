@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "hnsw_android"
 include(":hnsw_lib")
+include(":app")
