@@ -45,4 +45,21 @@ object ImageUtils {
             null
         }
     }
+
+    fun saveMap(context: Context, map: Map<Int, String>, filename: String) {
+        val file = File(context.filesDir, filename)
+        java.io.ObjectOutputStream(FileOutputStream(file)).use { it.writeObject(map) }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    fun loadMap(context: Context, filename: String): MutableMap<Int, String> {
+        val file = File(context.filesDir, filename)
+        if (!file.exists()) return mutableMapOf()
+        return try {
+            java.io.ObjectInputStream(java.io.FileInputStream(file)).use { it.readObject() as MutableMap<Int, String> }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            mutableMapOf()
+        }
+    }
 }
